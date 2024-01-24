@@ -1,0 +1,38 @@
+[gd_scene load_steps=5 format=3 uid="uid://bsg133h746jxv"]
+
+[ext_resource type="Script" path="res://scripts/arcade_scene.gd" id="1_kgr14"]
+[ext_resource type="PackedScene" uid="uid://b8sutqaklhqk0" path="res://scenes/board.tscn" id="2_v4u13"]
+[ext_resource type="PackedScene" uid="uid://ot0x8on0sjmu" path="res://scenes/ball.tscn" id="3_aaugb"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ggnl4"]
+size = Vector2(1335, 20)
+
+[node name="ArcadeScene" type="Node2D"]
+script = ExtResource("1_kgr14")
+
+[node name="Background" type="ColorRect" parent="."]
+offset_right = 1279.0
+offset_bottom = 720.0
+color = Color(0.572549, 0.756863, 0.686275, 1)
+metadata/_edit_use_anchors_ = true
+
+[node name="Board" parent="." instance=ExtResource("2_v4u13")]
+position = Vector2(583, 651)
+
+[node name="ExitLine" type="CharacterBody2D" parent="."]
+position = Vector2(-24, 681)
+
+[node name="CollisionShape" type="CollisionShape2D" parent="ExitLine"]
+position = Vector2(658, 81)
+shape = SubResource("RectangleShape2D_ggnl4")
+
+[node name="Ball" parent="." instance=ExtResource("3_aaugb")]
+position = Vector2(470, 58)
+
+[node name="Score" type="Label" parent="."]
+offset_left = 549.0
+offset_top = 57.0
+offset_right = 616.0
+offset_bottom = 80.0
+
+[connection signal="collided_with_body" from="Ball" to="." method="_on_ball_collided_with_body"]
